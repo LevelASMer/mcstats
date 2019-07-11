@@ -10,7 +10,7 @@ from random import random, gauss, randint
 from scipy.stats import norm
 from discord.ext import commands
 
-DB_URL = os.environ['DB_URL']
+DB_URL = os.environ['DATABASE_URL']
 
 def percent_box():
     per1 = round(random() * 100) % 10

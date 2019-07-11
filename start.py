@@ -10,7 +10,7 @@ from discord.ext import commands
 BOT_PREFIX = ("?", "!")
 game = Game("Public Beta")
 TOKEN = os.environ['TOKEN']
-DB_URL = os.environ['DB_URL']
+DB_URL = os.environ['DATABASE_URL']
 
 # This specifies what extensions to load when the bot starts up
 startup_extensions = ["overstats", "cafechat"]
