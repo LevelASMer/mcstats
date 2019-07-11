@@ -76,7 +76,7 @@ class CafeChat(commands.Cog):
                     "INSERT INTO users (id, name, rank, count) "
                     "SELECT * FROM (SELECT {0}, '{1}', 1, 0) AS tmp "
                     "WHERE NOT EXISTS ("
-                        "SELECT id FROM ranranru WHERE id = {0}"
+                        "SELECT id FROM users WHERE id = {0}"
                     ") LIMIT 1;".format(
                         ctx.message.author.id,
                         ctx.message.author.name
