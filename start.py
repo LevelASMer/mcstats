@@ -25,7 +25,7 @@ def create_connection():
 
         cur.execute(
             "CREATE TABLE IF NOT EXISTS users ("
-                "id int PRIMARY KEY,"
+                "id bigint PRIMARY KEY,"
                 "name text NOT NULL,"
                 "rank int,"
                 "count int"

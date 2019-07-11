@@ -72,26 +72,21 @@ class CafeChat(commands.Cog):
             cur = conn.cursor()
 
             try:
-                sql = "INSERT INTO users (id, name, rank, count) VALUES(?, ?, 1, 0)"
-
                 cur.execute(
                     "INSERT INTO users (id, name, rank, count) "
-                    "SELECT * FROM (SELECT ?, ?, 1, 0) AS tmp "
+                    "SELECT * FROM (SELECT {0}, '{1}', 1, 0) AS tmp "
                     "WHERE NOT EXISTS ("
-                        "SELECT id FROM ranranru WHERE id = ?"
-                    ") LIMIT 1;",
-                    (
+                        "SELECT id FROM ranranru WHERE id = {0}"
+                    ") LIMIT 1;".format(
                         ctx.message.author.id,
-                        ctx.message.author.name,
-                        ctx.message.author.id,
+                        ctx.message.author.name
                     )
                 )
                 conn.commit()
             except psycopg2.Error as e:
                 print(e)
             finally:
-                sql = "SELECT rank FROM users WHERE id=?"
-                data = cur.execute(sql, (ctx.message.author.id,))
+                data = cur.execute("SELECT rank FROM users WHERE id={}".format(ctx.message.author.id))
                 result = cur.fetchall()
 
                 for row in result:
