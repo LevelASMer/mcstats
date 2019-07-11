@@ -15,7 +15,7 @@ DB_URL = os.environ['DATABASE_URL']
 # This specifies what extensions to load when the bot starts up
 startup_extensions = ["overstats", "cafechat"]
 
-bot = commands.Bot(command_prefix=BOT_PREFIX, description='A Discord Bot by DevHackers\nBuild 2019.07.11 GMT 09:00+\nUpdate: ranranru command update')
+bot = commands.Bot(command_prefix=BOT_PREFIX, description='A Discord Bot by DevHackers\nBuild 2019.07.11 UTC+09:00\nUpdate: ranranru command update')
 
 def create_connection():
     # Create a database connection to a PostgreSQL database
