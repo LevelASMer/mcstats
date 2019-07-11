@@ -73,15 +73,28 @@ class CafeChat(commands.Cog):
 
             try:
                 sql = "INSERT INTO users (id, name, rank, count) VALUES(?, ?, 1, 0)"
-                cur.execute(sql, (ctx.message.author.id, ctx.message.author.name,))
+
+                cur.execute(
+                    "INSERT INTO users (id, name, rank, count) "
+                    "SELECT * FROM (SELECT ?, ?, 1, 0) AS tmp "
+                    "WHERE NOT EXISTS ("
+                        "SELECT id FROM ranranru WHERE id = ?"
+                    ") LIMIT 1;",
+                    (
+                        ctx.message.author.id,
+                        ctx.message.author.name,
+                        ctx.message.author.id,
+                    )
+                )
                 conn.commit()
             except psycopg2.Error as e:
                 print(e)
             finally:
                 sql = "SELECT rank FROM users WHERE id=?"
                 data = cur.execute(sql, (ctx.message.author.id,))
+                result = cur.fetchall()
 
-                for row in data:
+                for row in result:
                     await ctx.send("현재 랭크: {}".format(row[0]))
         except psycopg2.Error as e:
             print(e)
