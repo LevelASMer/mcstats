@@ -91,7 +91,7 @@ async def list(ctx, description='Show available extensions'):
 @bot.event
 async def on_message(message):
     channel = message.channel
-    if message.content.startswith("fff", "rrr", "ㄹㄹㄹ", "란란루"):
+    if message.content.startswith("ㄹㄹㄹ"):
         try:
             conn = psycopg2.connect(DB_URL, sslmode='require')
             cur = conn.cursor()
