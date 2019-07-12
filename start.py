@@ -62,33 +62,6 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-@bot.event
-async def on_message(message):
-    channel = message.channel
-    if message.content.startswith("ㄹㄹㄹ"):
-        try:
-            conn = psycopg2.connect(DB_URL, sslmode='require')
-            cur = conn.cursor()
-
-            try:
-                cur.execute("UPDATE ranranru SET count = count + 1 WHERE id = 1")
-                conn.commit()
-            except psycopg2.Error as e:
-                print(e)
-            finally:
-                cur.execute("SELECT count FROM ranranru WHERE id = 1")
-                result = cur.fetchall()
-
-                for row in result:
-                    embed = Embed(title="란란루를 외치셨습니다", description="총 란란루 횟수: {}".format(row[0]), color=0x7289da)
-                    await channel.send(embed=embed)
-        except psycopg2.Error as e:
-            print(e)
-        finally:
-            conn.close()
-
-    await bot.process_commands(message)
-
 @bot.command()
 async def load(ctx, extension_name : str=None, description='Load extension'):
     # Loads an extension.
@@ -115,6 +88,33 @@ async def unload(ctx, extension_name : str=None, description='Unload extension')
 async def list(ctx, description='Show available extensions'):
     await ctx.send("List of extensions: {}".format(startup_extensions))
 
+@bot.event
+async def on_message(message):
+    channel = message.channel
+    if message.content.startswith("ㄹㄹㄹ"):
+        try:
+            conn = psycopg2.connect(DB_URL, sslmode='require')
+            cur = conn.cursor()
+
+            try:
+                cur.execute("UPDATE ranranru SET count = count + 1 WHERE id = 1")
+                conn.commit()
+            except psycopg2.Error as e:
+                print(e)
+            finally:
+                cur.execute("SELECT count FROM ranranru WHERE id = 1")
+                result = cur.fetchall()
+
+                for row in result:
+                    embed = Embed(title="란란루를 외치셨습니다", description="총 란란루 횟수: {}".format(row[0]), color=0x7289da)
+                    await channel.send(embed=embed)
+        except psycopg2.Error as e:
+            print(e)
+        finally:
+            conn.close()
+
+    await bot.process_commands(message)
+    
 if __name__ == "__main__":
     for extension in startup_extensions:
         try:
