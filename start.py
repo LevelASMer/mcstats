@@ -4,7 +4,7 @@
 import os
 import ctypes
 import psycopg2
-from discord import Game, Status
+from discord import Game, Status, Embed
 from discord.ext import commands
 
 BOT_PREFIX = ("?", "!")
