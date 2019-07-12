@@ -41,7 +41,7 @@ class CafeChat(commands.Cog):
     @commands.command(pass_context=True, aliases=['rrr', 'fff', 'ㄹㄹㄹ', '란란루'], description='Say Ran Ran Ru')
     async def ranranru(self, ctx):
         try:
-            conn = psycopg2.connect(DB_URL)
+            conn = psycopg2.connect(DB_URL, sslmode='require')
             cur = conn.cursor()
 
             try:
@@ -70,7 +70,7 @@ class CafeChat(commands.Cog):
     @commands.command(pass_context=True, aliases=['랭크'], description='Show your rank')
     async def rank(self, ctx):
         try:
-            conn = psycopg2.connect(DB_URL)
+            conn = psycopg2.connect(DB_URL, sslmode='require')
             cur = conn.cursor()
 
             try:
@@ -130,7 +130,7 @@ class CafeChat(commands.Cog):
     # Version
     @commands.command(pass_context=True, aliases=['버전'], description='This bot\'s info')
     async def version(self, ctx):
-        await self.bot.send(
+        await ctx.send(
             "CafeChat Extension by DevHackers from SMWComm."
             "```\n"
             "Python Version: {}\n"

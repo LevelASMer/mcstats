@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix=BOT_PREFIX, description='A Discord Bot by DevH
 def create_connection():
     # Create a database connection to a PostgreSQL database
     try:
-        conn = psycopg2.connect(DB_URL)
+        conn = psycopg2.connect(DB_URL, sslmode='require')
         cur = conn.cursor()
 
         cur.execute(
