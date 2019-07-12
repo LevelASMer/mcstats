@@ -38,7 +38,7 @@ class CafeChat(commands.Cog):
         self.bot = bot
 
     # Ran Ran Ru!
-    @commands.command(pass_context=True, aliases=['rrr', 'fff', '', '란란루'], description='Say Ran Ran Ru')
+    @commands.command(pass_context=True, aliases=['rrr', 'fff', 'ㄹㄹㄹ', '란란루'], description='Say Ran Ran Ru')
     async def ranranru(self, ctx):
         try:
             conn = psycopg2.connect(DB_URL, sslmode='require')
