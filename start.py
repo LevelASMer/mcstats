@@ -91,6 +91,7 @@ async def list(ctx, description='Show available extensions'):
 @bot.event
 async def on_message(message):
     channel = message.channel
+
     if message.content.startswith("ㄹㄹㄹ"):
         try:
             conn = psycopg2.connect(DB_URL, sslmode='require')
@@ -112,9 +113,9 @@ async def on_message(message):
             print(e)
         finally:
             conn.close()
-
-    await bot.process_commands(message)
     
+    await bot.process_commands(message)
+
 if __name__ == "__main__":
     for extension in startup_extensions:
         try:
