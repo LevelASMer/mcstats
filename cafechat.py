@@ -132,7 +132,7 @@ class CafeChat(commands.Cog):
     async def version(self, ctx):
         await ctx.send(
             "CafeChat Extension by DevHackers from SMWComm."
-            "```\n"
+            "```css\n"
             "Python Version: {}\n"
             "System: {}\nNode: {}\n"
             "Release: {}\n"
