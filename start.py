@@ -86,7 +86,8 @@ async def on_message(message):
             print(e)
         finally:
             conn.close()
-            await bot.process_commands(message)
+
+    await bot.process_commands(message)
 
 @bot.command()
 async def load(ctx, extension_name : str=None, description='Load extension'):
