@@ -8,6 +8,7 @@ from sys import version
 from datetime import datetime
 from random import random, gauss, randint
 from scipy.stats import norm
+from discord import Embed
 from discord.ext import commands
 
 DB_URL = os.environ['DATABASE_URL']
@@ -53,7 +54,8 @@ class CafeChat(commands.Cog):
                 result = cur.fetchall()
 
                 for row in result:
-                    await ctx.send("총 란란루 횟수: {}".format(row[0]))
+                    embed = Embed(title="란란루를 외치셨습니다", description="총 란란루 횟수: {}".format(row[0]), color=0x7289da)
+                    await ctx.send(embed=embed)
         except psycopg2.Error as e:
             print(e)
         finally:

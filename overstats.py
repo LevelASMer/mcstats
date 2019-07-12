@@ -3,7 +3,7 @@
 
 import aiohttp
 import json
-import discord
+from discord import Embed
 from discord.ext import commands
 
 class OverStats(commands.Cog):
@@ -16,7 +16,7 @@ class OverStats(commands.Cog):
         if battletag is None:
             await ctx.send("Please input BattleTag.")
         else:
-            url = 'https://ovrstat.com/stats/pc/kr/{}'.format(battletag)
+            url = 'https://ow-api.com/v1/stats/pc/kr/{}/complete'.format(battletag)
 
             # Async HTTP request
             async with aiohttp.ClientSession() as session:
@@ -26,7 +26,7 @@ class OverStats(commands.Cog):
 
                 if 'message' not in data:
                     icon = data['icon']
-                    embed = discord.Embed(color=0x7289da)
+                    embed = Embed(color=0x7289da)
                     embed.set_author(name=battletag + "'s Profile", icon_url=icon)
 
                     if data['private'] == True:
