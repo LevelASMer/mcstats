@@ -37,8 +37,34 @@ class CafeChat(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @bot.event
+    async def on_message(message):
+    if message.content.startswith("ㄹㄹㄹ"):
+        try:
+            conn = psycopg2.connect(DB_URL, sslmode='require')
+            cur = conn.cursor()
+
+            try:
+                cur.execute("UPDATE ranranru SET count = count + 1 WHERE id = 1")
+                conn.commit()
+            except psycopg2.Error as e:
+                print(e)
+            finally:
+                cur.execute("SELECT count FROM ranranru WHERE id = 1")
+                result = cur.fetchall()
+
+                for row in result:
+                    embed = Embed(title="란란루를 외치셨습니다", description="총 란란루 횟수: {}".format(row[0]), color=0x7289da)
+                    await ctx.send(embed=embed)
+        except psycopg2.Error as e:
+            print(e)
+        finally:
+            conn.close()
+
+    await bot.process_commands(message)
+
     # Ran Ran Ru!
-    @commands.command(pass_context=True, aliases=['rrr', 'fff', 'ㄹㄹㄹ', '란란루'], description='Say Ran Ran Ru')
+    @commands.command(pass_context=True, aliases=['rrr', 'fff', '', '란란루'], description='Say Ran Ran Ru')
     async def ranranru(self, ctx):
         try:
             conn = psycopg2.connect(DB_URL, sslmode='require')
