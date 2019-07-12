@@ -113,7 +113,7 @@ async def on_message(message):
             print(e)
         finally:
             conn.close()
-            await bot.process_commands(message)
+    await bot.process_commands(message)
 
 if __name__ == "__main__":
     for extension in startup_extensions:
