@@ -4,6 +4,7 @@ A SMWComm. Discord bot project.
 ## Commands
 **OverStats**
 * profile
+
 **CafeChat**
 * camera
 * iq
@@ -12,6 +13,7 @@ A SMWComm. Discord bot project.
 * ranranru
 * time
 * version
+
 **Internal (Progress)**
 * help
 * list
