@@ -99,27 +99,27 @@ class CafeChat(commands.Cog):
             conn.close()
 
     # Generate Random Percent
-    @commands.command(pass_context=True, aliases=['평균', '확률'], description='Generate random percentage')
-    async def percent(self, ctx, *, subject : str=None):
-        if subject is None:
-            await ctx.send("{}의 확률\n{}".format(ctx.message.author.mention, percent_box()))
-        else:
-            await ctx.send("{}의 {} 확률\n{}".format(ctx.message.author.mention, subject, percent_box()))
+    # @commands.command(pass_context=True, aliases=['평균', '확률'], description='Generate random percentage')
+    # async def percent(self, ctx, *, subject : str=None):
+    #     if subject is None:
+    #         await ctx.send("{}의 확률\n{}".format(ctx.message.author.mention, percent_box()))
+    #     else:
+    #         await ctx.send("{}의 {} 확률\n{}".format(ctx.message.author.mention, subject, percent_box()))
 
     # Generate Random IQ
-    @commands.command(pass_context=True, aliases=['아이큐', '지능'], description='Generate random IQ')
-    async def iq(self, ctx):
-        iq = int(gauss(100.0, 15.0))
-        percent = int(norm.cdf((iq - 100.0) / 15.0) * 100)
+    # @commands.command(pass_context=True, aliases=['아이큐', '지능'], description='Generate random IQ')
+    # async def iq(self, ctx):
+    #     iq = int(gauss(100.0, 15.0))
+    #     percent = int(norm.cdf((iq - 100.0) / 15.0) * 100)
 
-        ret = "%s의 IQ는 %d 입니다. " % (ctx.message.author.mention, iq)
+    #     ret = "%s의 IQ는 %d 입니다. " % (ctx.message.author.mention, iq)
 
-        if percent >= 50:
-            ret += '(상위 %d%%)' % (100 - percent)
-        else:
-            ret += '(하위 %d%%)' % (percent)
+    #     if percent >= 50:
+    #         ret += '(상위 %d%%)' % (100 - percent)
+    #     else:
+    #         ret += '(하위 %d%%)' % (percent)
 
-        await ctx.send(ret)
+    #     await ctx.send(ret)
 
     # Time
     @commands.command(aliases=['시간'], description='Show current time')
