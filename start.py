@@ -54,6 +54,21 @@ def create_connection():
     finally:
         conn.close()
 
+def ranranru_count():
+    try:
+        conn = psycopg2.connect(DB_URL, sslmode='require')
+        cur = conn.cursor()
+
+        try:
+            cur.execute("UPDATE ranranru SET count = count + 1 WHERE id = 1")
+            conn.commit()
+        except psycopg2.Error as e:
+            print(e)
+    except psycopg2.Error as e:
+        print(e)
+    finally:
+        conn.close()
+        
 @bot.event
 async def on_ready():
     await bot.change_presence(status=Status.online, activity=game)
@@ -91,27 +106,14 @@ async def list(ctx, description='Show available extensions'):
 @bot.event
 async def on_message(message):
     channel = message.channel
+    if message.content.startswith("fff"):
+        ranranru_count()
+    if message.content.startswith("rrr"):
+        ranranru_count()
     if message.content.startswith("ㄹㄹㄹ"):
-        try:
-            conn = psycopg2.connect(DB_URL, sslmode='require')
-            cur = conn.cursor()
-
-            try:
-                cur.execute("UPDATE ranranru SET count = count + 1 WHERE id = 1")
-                conn.commit()
-            except psycopg2.Error as e:
-                print(e)
-            finally:
-                cur.execute("SELECT count FROM ranranru WHERE id = 1")
-                result = cur.fetchall()
-
-                for row in result:
-                    embed = Embed(title="란란루를 외치셨습니다", description="총 란란루 횟수: {}".format(row[0]), color=0x7289da)
-                    await channel.send(embed=embed)
-        except psycopg2.Error as e:
-            print(e)
-        finally:
-            conn.close()
+        ranranru_count()
+    if message.content.startswith("란란루"):
+        ranranru_count()
     await bot.process_commands(message)
 
 if __name__ == "__main__":
