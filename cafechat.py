@@ -115,15 +115,15 @@ class CafeChat(commands.Cog):
         idx_iq = int(iq / 10)
         if iq is 88:
             result_list = "<:mamja:282829569420165121>"
-        if iq is 95:
+        elif iq is 95:
             result_list = "<:dntks:281632203362926594>"
-        if iq is 96:
+        elif iq is 96:
             result_list = "<:dntks:281632203362926594>"
-        if iq is 97:
+        elif iq is 97:
             result_list = "<:dntks:281632203362926594>"
-        if iq is 98:
+        elif iq is 98:
             result_list = "<:dntks:281632203362926594>"
-        if iq is 99:
+        elif iq is 99:
             result_list = "<:dntks:281632203362926594>"
         elif iq is 116:
             result_list = "<:haba:535884612149444610>"
