@@ -115,6 +115,16 @@ class CafeChat(commands.Cog):
         idx_iq = int(iq / 10)
         if iq is 88:
             result_list = "<:mamja:282829569420165121>"
+        elif iq is 75:
+            result_list = "<:babo:597031946505158656>"
+        elif iq is 76:
+            result_list = "<:babo:597031946505158656>"
+        elif iq is 77:
+            result_list = "<:babo:597031946505158656>"
+        elif iq is 78:
+            result_list = "<:babo:597031946505158656>"
+        elif iq is 79:
+            result_list = "<:babo:597031946505158656>"
         elif iq is 95:
             result_list = "<:dntks:281632203362926594>"
         elif iq is 96:
@@ -127,6 +137,16 @@ class CafeChat(commands.Cog):
             result_list = "<:dntks:281632203362926594>"
         elif iq is 116:
             result_list = "<:haba:535884612149444610>"
+        elif iq is 120:
+            result_list = "<:akfrdma:281628761395560450>"
+        elif iq is 121:
+            result_list = "<:akfrdma:281628761395560450>"
+        elif iq is 122:
+            result_list = "<:akfrdma:281628761395560450>"
+        elif iq is 123:
+            result_list = "<:akfrdma:281628761395560450>"
+        elif iq is 124:
+            result_list = "<:akfrdma:281628761395560450>"
         elif iq is 130:
             result_list = "<:mensa:543726315564433408>"
         else:
