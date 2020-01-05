@@ -8,7 +8,7 @@ from sys import version
 from datetime import datetime
 from random import random, gauss, randint
 from scipy.stats import norm
-from discord import Embed
+from discord import Embed, Emoji
 from discord.ext import commands
 
 DB_URL = os.environ['DATABASE_URL']
@@ -99,27 +99,62 @@ class CafeChat(commands.Cog):
             conn.close()
 
     # Generate Random Percent
-    # @commands.command(pass_context=True, aliases=['평균', '확률'], description='Generate random percentage')
-    # async def percent(self, ctx, *, subject : str=None):
-    #     if subject is None:
-    #         await ctx.send("{}의 확률\n{}".format(ctx.message.author.mention, percent_box()))
-    #     else:
-    #         await ctx.send("{}의 {} 확률\n{}".format(ctx.message.author.mention, subject, percent_box()))
+    @commands.command(pass_context=True, aliases=['평균', '확률'], description='Generate random percentage')
+    async def percent(self, ctx, *, subject : str=None):
+        if subject is None:
+            await ctx.send("{}의 확률\n{}".format(ctx.message.author.mention, percent_box()))
+        else:
+            await ctx.send("{}의 {} 확률\n{}".format(ctx.message.author.mention, subject, percent_box()))
 
     # Generate Random IQ
-    # @commands.command(pass_context=True, aliases=['아이큐', '지능'], description='Generate random IQ')
-    # async def iq(self, ctx):
-    #     iq = int(gauss(100.0, 15.0))
-    #     percent = int(norm.cdf((iq - 100.0) / 15.0) * 100)
+    @commands.command(pass_context=True, aliases=['아이큐', '지능'], description='Generate random IQ')
+    async def iq(self, ctx):
+        iq = int(gauss(100.0, 15.0))
+        percent = int(norm.cdf((iq - 100.0) / 15.0) * 100)
 
-    #     ret = "%s의 IQ는 %d 입니다. " % (ctx.message.author.mention, iq)
+        idx_iq = int(iq / 10)
+        if iq is 88:
+            result_list = "<:mamja:282829569420165121>"
+        if iq is 95:
+            result_list = "<:dntks:281632203362926594>"
+        if iq is 96:
+            result_list = "<:dntks:281632203362926594>"
+        if iq is 97:
+            result_list = "<:dntks:281632203362926594>"
+        if iq is 98:
+            result_list = "<:dntks:281632203362926594>"
+        if iq is 99:
+            result_list = "<:dntks:281632203362926594>"
+        elif iq is 116:
+            result_list = "<:haba:535884612149444610>"
+        elif iq is 130:
+            result_list = "<:mensa:543726315564433408>"
+        else:
+            iq_list = {
+                4: "<:muncher:312635223445864448>",
+                5: "<:muncher:312635223445864448>",
+                6: "<:muncher:312635223445864448>",
+                7: "<:qjtjt:662978800497459220>",
+                8: "<:alth:281630097780244485>",
+                9: "<:dytnfwlvkddl:281633702188941312>",
+                10: "<:dntdma:281634197745958922>",
+                11: "<:roa:281632770764177409>",
+                12: "<:tjsanf:290502846099750912>",
+                13: "<:vjwmf:281634733824147457>",
+                14: "<:bono:308806567946616832>",
+                15: "<:bono:308806567946616832>",
+            }
 
-    #     if percent >= 50:
-    #         ret += '(상위 %d%%)' % (100 - percent)
-    #     else:
-    #         ret += '(하위 %d%%)' % (percent)
+            result_list = iq_list[idx_iq]
 
-    #     await ctx.send(ret)
+        ret = "%s의 IQ는 %d 입니다. %s " % (ctx.message.author.mention, iq, result_list)
+
+        if percent >= 50:
+            ret += '(상위 %d%%)' % (100 - percent)
+        else:
+            ret += '(하위 %d%%)' % (percent)
+
+        await ctx.send(ret)
 
     # Time
     @commands.command(aliases=['시간'], description='Show current time')
