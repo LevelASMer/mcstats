@@ -110,46 +110,33 @@ class CafeChat(commands.Cog):
     @commands.command(pass_context=True, aliases=['아이큐', '지능'], description='Generate random IQ')
     async def iq(self, ctx):
         iq = int(gauss(100.0, 15.0))
+        idx_iq = int(iq / 10)
         percent = int(norm.cdf((iq - 100.0) / 15.0) * 100)
 
-        idx_iq = int(iq / 10)
-        if iq is 88:
-            result_list = "<:mamja:282829569420165121>"
-        elif iq is 75:
-            result_list = "<:babo:597031946505158656>"
-        elif iq is 76:
-            result_list = "<:babo:597031946505158656>"
-        elif iq is 77:
-            result_list = "<:babo:597031946505158656>"
-        elif iq is 78:
-            result_list = "<:babo:597031946505158656>"
-        elif iq is 79:
-            result_list = "<:babo:597031946505158656>"
-        elif iq is 95:
-            result_list = "<:dntks:281632203362926594>"
-        elif iq is 96:
-            result_list = "<:dntks:281632203362926594>"
-        elif iq is 97:
-            result_list = "<:dntks:281632203362926594>"
-        elif iq is 98:
-            result_list = "<:dntks:281632203362926594>"
-        elif iq is 99:
-            result_list = "<:dntks:281632203362926594>"
-        elif iq is 116:
-            result_list = "<:haba:535884612149444610>"
-        elif iq is 120:
-            result_list = "<:akfrdma:281628761395560450>"
-        elif iq is 121:
-            result_list = "<:akfrdma:281628761395560450>"
-        elif iq is 122:
-            result_list = "<:akfrdma:281628761395560450>"
-        elif iq is 123:
-            result_list = "<:akfrdma:281628761395560450>"
-        elif iq is 124:
-            result_list = "<:akfrdma:281628761395560450>"
-        elif iq is 130:
-            result_list = "<:mensa:543726315564433408>"
-        else:
+        try:
+            iq_list = {
+                75: "<:babo:597031946505158656>",
+                76: "<:babo:597031946505158656>",
+                77: "<:babo:597031946505158656>",
+                78: "<:babo:597031946505158656>",
+                79: "<:babo:597031946505158656>",
+                88: "<:mamja:282829569420165121>",
+                95: "<:dntks:281632203362926594>",
+                96: "<:dntks:281632203362926594>",
+                97: "<:dntks:281632203362926594>",
+                98: "<:dntks:281632203362926594>",
+                99: "<:dntks:281632203362926594>",
+                116: "<:haba:535884612149444610>",
+                120: "<:akfrdma:281628761395560450>",
+                121: "<:akfrdma:281628761395560450>",
+                122: "<:akfrdma:281628761395560450>",
+                123: "<:akfrdma:281628761395560450>",
+                124: "<:akfrdma:281628761395560450>",
+                130: "<:mensa:543726315564433408>",
+            }
+            
+            result_list = iq_list[iq]
+        except:
             iq_list = {
                 4: "<:muncher:312635223445864448>",
                 5: "<:muncher:312635223445864448>",
@@ -163,18 +150,19 @@ class CafeChat(commands.Cog):
                 13: "<:vjwmf:281634733824147457>",
                 14: "<:bono:308806567946616832>",
                 15: "<:bono:308806567946616832>",
+                16: "<:dono:648534120833482773>",
             }
 
             result_list = iq_list[idx_iq]
+        finally:
+            ret = "%s의 IQ는 %d 입니다. %s " % (ctx.message.author.mention, iq, result_list)
 
-        ret = "%s의 IQ는 %d 입니다. %s " % (ctx.message.author.mention, iq, result_list)
+            if percent >= 50:
+                ret += '(상위 %d%%)' % (100 - percent)
+            else:
+                ret += '(하위 %d%%)' % (percent)
 
-        if percent >= 50:
-            ret += '(상위 %d%%)' % (100 - percent)
-        else:
-            ret += '(하위 %d%%)' % (percent)
-
-        await ctx.send(ret)
+            await ctx.send(ret)
 
     # Time
     @commands.command(aliases=['시간'], description='Show current time')
