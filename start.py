@@ -126,10 +126,14 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        self.label = tk.Label(self, text="McStats", height=5, fg="black", font="Times 32")
+        self.label.pack(side="top")
+
         self.hi_there = tk.Button(self)
         self.hi_there["text"] = "Run Bot"
         self.hi_there["command"] = self.runbotButton
         self.hi_there.pack(side="top")
+
 
         self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
         self.quit.pack(side="bottom")
@@ -164,5 +168,6 @@ if __name__ == "__main__":
     root = tk.Tk()
     root.title("McStats")
     root.geometry("640x480")
+    root.resizable(False, False)
     app = Application(master=root)
     app.mainloop()
