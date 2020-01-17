@@ -1,9 +1,11 @@
-# Discord Bot
+# Discord Bot + GUI
 # Work with Python 3.7.3 Linux
 
 import os
 import ctypes
 import psycopg2
+import threading, time
+import tkinter as tk
 from discord import Game, Status, Embed
 from discord.ext import commands
 
@@ -13,7 +15,7 @@ TOKEN = os.environ['TOKEN']
 DB_URL = os.environ['DATABASE_URL']
 
 # This specifies what extensions to load when the bot starts up
-startup_extensions = ["overstats", "cafechat"]
+startup_extensions = ["overstats", "cafechat", "random_donald"]
 
 bot = commands.Bot(command_prefix=BOT_PREFIX, description='A Discord Bot by DevHackers\nBuild 2019.07.11 UTC+09:00\nUpdate: ranranru command update')
 
@@ -49,6 +51,14 @@ def create_connection():
             ") LIMIT 1;"
         )
         conn.commit()
+
+        cur.execute(
+            "CREATE TABLE IF NOT EXISTS random_donald ("
+                "name text PRIMARY KEY NOT NULL,"
+                "description text NOT NULL"
+            ");"
+        )
+        conn.commit()
     except psycopg2.Error as e:
         print(e)
     finally:
@@ -68,14 +78,6 @@ def ranranru_count():
         print(e)
     finally:
         conn.close()
-        
-@bot.event
-async def on_ready():
-    await bot.change_presence(status=Status.online, activity=game)
-    print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
-    print('------')
 
 @bot.command()
 async def load(ctx, extension_name : str=None, description='Load extension'):
@@ -116,6 +118,39 @@ async def on_message(message):
         ranranru_count()
     await bot.process_commands(message)
 
+class Application(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.pack()
+        self.create_widgets()
+
+    def create_widgets(self):
+        self.hi_there = tk.Button(self)
+        self.hi_there["text"] = "Run Bot"
+        self.hi_there["command"] = self.runbotButton
+        self.hi_there.pack(side="top")
+
+        self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
+        self.quit.pack(side="bottom")
+
+    def runbotButton(self):
+        t = threading.Thread(target=letrunbot)
+        t.daemon = True
+        t.start()
+
+def letrunbot():
+    bot.run(TOKEN)
+
+@bot.event
+async def on_ready():
+    print('Logged in as')
+    print(bot.user.name)
+    print(bot.user.id)
+    print('------')
+
+    await bot.change_presence(status=Status.online, activity=game)
+
 if __name__ == "__main__":
     for extension in startup_extensions:
         try:
@@ -126,4 +161,8 @@ if __name__ == "__main__":
 
     create_connection()
 
-    bot.run(TOKEN)
+    root = tk.Tk()
+    root.title("McStats")
+    root.geometry("640x480")
+    app = Application(master=root)
+    app.mainloop()
